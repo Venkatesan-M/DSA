@@ -1,6 +1,7 @@
 package SearchingTechniques.Binary;
 
 public class PeakIndex {
+
     public static void main(String[] args) {
         // int[] arr = {0,1,0};
         // int[] arr = {0,2,1,0};
@@ -10,58 +11,51 @@ public class PeakIndex {
         System.out.println(output);
     }
 
-    // https://leetcode.com/problems/peak-index-in-a-mountain-array/description/
-    public static int peakIndexInMountainArray(int[] arr) {
-        return getTarget(arr);
-    }
+    // Easy Question
 
-    public static int getTarget(int[] arr){
-        int target = arr[0]; int ind = 0;
+    // https://leetcode.com/problems/peak-index-in-a-mountain-array/description/
+    public static int peakIndexInMountainArray(int[] arr){
         int start = 0; int end = arr.length - 1;
-        while(start<=end){
+        while(start<end){
             int mid = start + (end - start) / 2;
-            if(target < arr[mid]){
-                target = arr[mid]; ind = mid;
-                if(arr[mid] > arr[start]){
-                    end = mid - 1;
-                }
-                else{
-                    start = mid + 1;
-                }
-            }
-            else if(target > arr[mid]){
-                if(arr[mid] < arr[end]){
-                    start = mid + 1;
-                }
-                else{
-                    end = mid - 1;
-                }
-                
+            if(arr[mid] > arr[mid + 1]){
+                // you're in dsc part of the array
+                // this maybe the ans, but look left once
+                // this is why end != mid - 1
+                end = mid;
             }
             else{
-                return mid - 1;
-            }
-        }
-        return ind;
-    }
-
-    public static int binarySearch(int arr[],  int target){
-        int start = 0;
-        int end = arr.length - 1;
-        // int mid = (int) ((start + end)/2); // the (start + end) can exceed the Integer.MAX_VALUE
-        // better way to find mid is start + (end - start)/2
-        while(start <= end){
-            int mid = start + (end - start) / 2;
-            if(target < arr[mid]){
-                end = mid - 1;
-            }
-            else if (target > arr[mid]){
+                // you're in asc part of the array
+                // we know mid + 1 element > mid element
                 start = mid + 1;
             }
+        }
+        // start == end
+        // start and end are always trying to find the maximum element
+        return start;
+    }
+
+    // Medium Question
+
+    // https://leetcode.com/problems/find-peak-element/
+    public int findPeakElement(int[] arr) {
+        int start = 0; int end = arr.length - 1;
+        while(start<end){
+            int mid = start + (end - start) / 2;
+            if(arr[mid] > arr[mid + 1]){
+                // you're in dsc part of the array
+                // this maybe the ans, but look left once
+                // this is why end != mid - 1
+                end = mid;
+            }
             else{
-                return mid;
+                // you're in asc part of the array
+                // we know mid + 1 element > mid element
+                start = mid + 1;
             }
         }
-        return -1;
+        // start == end
+        // start and end are always trying to find the maximum element
+        return start; 
     }
 }
