@@ -1,4 +1,4 @@
-package BackTracking;
+package BackTracking.NQueens;
 
 import java.util.*;
 
