@@ -20,7 +20,7 @@ public class Main{
     static void isoscelesTriangle(int n){
         for(int i = 1; i <= n; i++){
             StringBuilder s = new StringBuilder();
-            s.append((n-));
+            s.append((n));
             System.out.println();
         }
 
