@@ -48,22 +48,7 @@ public class Questions {
             temp = temp.next;
         }
         System.out.println();
-    }
-
-    // https://leetcode.com/problems/middle-of-the-linked-list/
-    // Easy
-    public ListNode middleNode(ListNode head) {
-        // Imagine two person running a race, where the linkedlist is the track;
-        // while the fast person finish the race, the slow person will be at midpoint of the track
-        // that logic is used to find the mid-point in one single pass
-        ListNode fast = head; ListNode slow = head;
-        while(fast != null && fast.next != null){
-            fast = fast.next.next;
-            slow = slow.next;
-        }
-        return slow;
-    }
-        
+    }   
         
     // https://leetcode.com/problems/remove-duplicates-from-sorted-list/
     // Easy
@@ -108,6 +93,20 @@ public class Questions {
         return dummy.next; // head
     }
 
+    // https://leetcode.com/problems/middle-of-the-linked-list/
+    // Easy
+    public ListNode middleNode(ListNode head) {
+        // Imagine two person running a race, where the linkedlist is the track;
+        // while the fast person finish the race, the slow person will be at midpoint of the track
+        // that logic is used to find the mid-point in one single pass
+        ListNode fast = head; ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
     // https://leetcode.com/problems/linked-list-cycle/
     // Easy
     public boolean hasCycle(ListNode head) {
@@ -135,6 +134,23 @@ public class Questions {
         return false;
     }
 
+    public int cycleLength(ListNode head) {
+        ListNode fast = head; ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                int len = 0;
+                do {
+                    slow = slow.next;
+                    len++;
+                } while(slow != fast);
+                return len;
+            }
+        }
+        return -1;
+    }
+
     // https://leetcode.com/problems/linked-list-cycle-ii
     // Medium
     public ListNode detectCycle(ListNode head) {
@@ -159,23 +175,6 @@ public class Questions {
         }
 
         return first;
-    }
-
-    public int cycleLength(ListNode head) {
-        ListNode fast = head; ListNode slow = head;
-        while(fast != null && fast.next != null){
-            fast = fast.next.next;
-            slow = slow.next;
-            if(fast == slow){
-                int len = 0;
-                do {
-                    slow = slow.next;
-                    len++;
-                } while(slow != fast);
-                return len;
-            }
-        }
-        return -1;
     }
 
     // https://leetcode.com/problems/happy-number/
@@ -360,5 +359,50 @@ public class Questions {
             firstHalf = temp1;
             secondHalf = temp2;
         }
+    }
+
+    // https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+    // Medium
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = dummy, slow = dummy;
+        
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return dummy.next;
+    }
+
+
+    // https://leetcode.com/problems/rotate-list/
+    // Medium
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null ){
+            return head;
+        }
+        int len = 1;
+        ListNode temp = head;
+        while(temp.next != null){
+            temp = temp.next;
+            len++;
+        }
+        temp.next = head;
+        int cut = len - k % len;
+        while(cut > 0){
+            cut--;
+            temp = temp.next;
+        }
+        ListNode ans = temp.next;
+        temp.next = null;
+        return ans;
     }
 }
