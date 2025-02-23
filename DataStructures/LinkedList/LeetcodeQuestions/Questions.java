@@ -405,4 +405,48 @@ public class Questions {
         temp.next = null;
         return ans;
     }
+
+    // https://leetcode.com/problems/reverse-nodes-in-k-group/
+    // hard
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || k == 1) return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prevGroupEnd = dummy;
+
+        while (true) {
+            // Check if there are at least k nodes left
+            ListNode kthNode = prevGroupEnd;
+            for (int i = 0; i < k; i++) {
+                kthNode = kthNode.next;
+                if (kthNode == null) return dummy.next; // Not enough nodes to reverse
+            }
+
+            // Reverse k nodes
+            ListNode groupStart = prevGroupEnd.next;
+            ListNode nextGroupStart = kthNode.next;
+            reverseList(groupStart, kthNode);
+
+            // Connect reversed group
+            prevGroupEnd.next = kthNode;
+            groupStart.next = nextGroupStart;
+
+            // Move prevGroupEnd to the end of the reversed group
+            prevGroupEnd = groupStart;
+        }
+    }
+
+    private void reverseList(ListNode start, ListNode end) {
+        ListNode prev = null;
+        ListNode curr = start;
+        ListNode stop = end.next; // Mark the stopping point
+
+        while (curr != stop) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+    }
 }
