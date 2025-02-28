@@ -1,5 +1,6 @@
 package DataStructures.LinkedList.LeetcodeQuestions;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Questions {
@@ -10,6 +11,18 @@ public class Questions {
 
         head = deleteDuplicates(head);
         display(head);
+    }
+
+    static class Node {
+        int val;
+        Node next;
+        Node random;
+    
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
+        }
     }
         
     // Definition for singly-linked list.
@@ -48,7 +61,23 @@ public class Questions {
             temp = temp.next;
         }
         System.out.println();
-    }   
+    }
+    
+    // https://leetcode.com/problems/intersection-of-two-linked-lists/
+    // Easy
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        while(headA != null){
+            ListNode ptr = headB;
+            while(ptr!=null){
+                if(ptr == headA){
+                    return ptr;
+                }
+                ptr = ptr.next;
+            }
+            headA = headA.next;
+        }
+        return null;
+    }
         
     // https://leetcode.com/problems/remove-duplicates-from-sorted-list/
     // Easy
@@ -149,6 +178,87 @@ public class Questions {
             }
         }
         return -1;
+    }
+
+    // https://leetcode.com/problems/delete-node-in-a-linked-list/
+    // Medium
+    public void deleteNode(ListNode node) {
+        ListNode prev = new ListNode(-1);
+        while(node.next != null){
+            node.val = node.next.val;
+            prev = node;
+            node = node.next;
+        }
+        prev.next = null;
+    }
+
+    // https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/description/
+    // Medium
+    public ListNode deleteMiddle(ListNode head) {
+        if(head == null || head.next == null){
+            return null;
+        }
+        ListNode mid = m_1(head);
+        mid.next = mid.next.next;
+        return head;
+    }
+
+    private ListNode m_1(ListNode head){
+        ListNode dummy = new ListNode(-1); dummy.next = head;
+        ListNode slow = dummy; ListNode fast = head;
+        while(fast!=null && fast.next!=null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+    // https://leetcode.com/problems/odd-even-linked-list/
+    // Medium
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return head;
+
+        ListNode odd = head; 
+        ListNode even = head.next; 
+        ListNode evenHead = even;
+
+        while (even != null && even.next != null) {
+            odd.next = even.next; // Move odd pointer
+            odd = odd.next;
+            even.next = odd.next; // Move even pointer
+            even = even.next;
+        }
+
+        odd.next = evenHead; // Attach even list at the end of the odd list
+        return head;
+    }
+
+    // https://leetcode.com/problems/copy-list-with-random-pointer/
+    // Medium
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // Step 1: Create a mapping of original nodes to new nodes
+        HashMap<Node, Node> map = new HashMap<>();
+        Node ptr = head;
+
+        while (ptr != null) {
+            map.put(ptr, new Node(ptr.val));
+            ptr = ptr.next;
+        }
+
+        // Step 2: Assign next and random pointers using the map
+        ptr = head;
+        while (ptr != null) {
+            Node copiedNode = map.get(ptr);
+            copiedNode.next = map.get(ptr.next);
+            copiedNode.random = map.get(ptr.random);
+            ptr = ptr.next;
+        }
+
+        return map.get(head);
     }
 
     // https://leetcode.com/problems/linked-list-cycle-ii
