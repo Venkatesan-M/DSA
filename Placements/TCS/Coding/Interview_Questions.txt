@@ -1,0 +1,47 @@
+1. what you mean by garbage collector?
+2. define AI, ML, DL?
+3. What is Spanning tree?
+4. different storage classes in c?
+5. what is cloud computing?
+6. what is dangling pointer?
+7. what are ddl, dml, dcl in sql?
+8. what are the characteristics of the big data analytics?
+9. what is Exeception handling?
+10. what is the difference between delete and truncate in sql?
+11. Explain types of protocols?
+12. Write the Binary Search Program for finding the position of a element in a sorted array.
+13. what is data abstraction?
+14. what is memory alignment?
+15. Explain the functionalities of a linkedlist?
+16. Explain the recursive function and what data structure is used to perform it?
+17. Explain the difference between operator new and new operator?
+18. Write a program to print a half pyramid number pattern.
+19. What is shared pointer?
+20. Which programming language would you prefer when given c, cpp and java?
+21. What is Hash Query?
+22. Write a program to swap two numbers without using any third variable.
+23. What is a primary key and reference key?
+24. What you mean by DBMS?
+25. Define Views, Normalisation and Recurse.
+26. What is a Software Development Cycle.
+27. Differiate Between Classes and Interfaces.
+28. Differiate Between Function and a methoed.
+
+ninga & diital
+
+1. Arrays
+2. Strings
+3. Conversions
+4. Number Series
+5. Sorting Alogirthms
+
+prime
+
+1. graphs
+2. trees
+3. dp
+4. stack & queue
+5. knapsack Alogirthm
+6. bellman ford
+7. dijkitra
+8. DSA & OOPS
