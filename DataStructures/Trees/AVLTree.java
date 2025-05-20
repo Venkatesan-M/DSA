@@ -91,7 +91,7 @@ public class AVLTree {
     public static void main(String[] args) {
         TreeNode root = null;
     
-        int[] values = {30, 20, 40, 10, 25, 50, 5}; // Inserting in this order forces rotations
+        // int[] values = {30, 20, 40, 10, 25, 50, 5}; // Inserting in this order forces rotations
     
         // for (int val : values) {
         //     root = insert(root, val);
