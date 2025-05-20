@@ -1,4 +1,4 @@
-package DataStructures.Trees;
+package DataStructures.Trees.Theory;
 
 public class BinarySearchTree {
     private static class TreeNode {
