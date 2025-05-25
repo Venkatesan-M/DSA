@@ -13,12 +13,38 @@ public class Traversal {
         }
     }
 
+    private static class Pair {
+        TreeNode node;
+        int num;
+    
+        Pair(TreeNode node, int num) {
+            this.node = node;
+            this.num = num;
+        }
+    }
+    
+
     // Recursive DFS traversals
     static void preOrder(TreeNode node) {
+        // Node, Left, Right
         if (node == null) return;
         System.out.print(node.val + " ");
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    static void preOrderStack(TreeNode node) {
+        // Node, Left, Right
+        Stack<TreeNode> st = new Stack<>();
+        st.push(node);
+        while(!st.isEmpty()){
+            TreeNode curr = st.pop();
+            System.out.print(curr.val + " ");
+            // STACK-->LIFO, so left should be on top to resolve it first
+            if(curr.right != null) st.push(curr.right);
+            if(curr.left != null) st.push(curr.left);
+        }
+        return;
     }
 
     static void inOrder(TreeNode node) {
@@ -28,12 +54,121 @@ public class Traversal {
         inOrder(node.right);
     }
 
+    static void inOrderStack(TreeNode node){
+        Stack<TreeNode> st = new Stack<>();
+        while(true){
+            if(node != null){
+                st.push(node);
+                node = node.left;
+            }
+            else{
+                if(st.isEmpty()) break; // all nodes processed
+                node = st.pop(); // poping the last node that was not null
+                System.out.print(node.val + " ");
+                node = node.right; // process the right part, then go left until left is complete in that subtree
+            }
+            return;
+        }
+    }
+
     static void postOrder(TreeNode node) {
         if (node == null) return;
         postOrder(node.left);
         postOrder(node.right);
         System.out.print(node.val + " ");
     }
+
+    static void postOrderTwoStacks(TreeNode root) {
+        if(root == null) return;
+        Stack<TreeNode> st1 = new Stack<>();
+        Stack<TreeNode> st2 = new Stack<>();
+        st1.push(root);
+        while(!st1.isEmpty()){
+            TreeNode curr = st1.pop();
+            // st2 hold the nodes in post order
+            st2.push(curr);
+            if(curr.left != null) st1.push(curr.left);
+            if(curr.right != null) st1.push(curr.right);
+        }
+        while(!st2.isEmpty()){
+            System.out.print(st2.pop().val + " ");
+        }
+        return;
+    }
+
+    static void postOrderStack(TreeNode root) {
+        if (root == null) return;
+    
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode curr = root;
+        TreeNode lastVisited = null;
+    
+        while (curr != null || !st.isEmpty()) {
+            if (curr != null) {
+                st.push(curr);
+                curr = curr.left;
+            } else {
+                TreeNode temp = st.peek().right;
+                if (temp == null || temp == lastVisited) {
+                    temp = st.pop();
+                    System.out.print(temp.val + " ");
+                    lastVisited = temp;
+                } else {
+                    curr = temp;
+                }
+            }
+        }
+    }
+
+    static void PreInPostOrder(TreeNode root) {
+        if (root == null) return;
+    
+        List<Integer> preOrder = new ArrayList<>();
+        List<Integer> inOrder = new ArrayList<>();
+        List<Integer> postOrder = new ArrayList<>();
+        Stack<Pair> st = new Stack<>();
+    
+        st.push(new Pair(root, 1));
+    
+        while (!st.isEmpty()) {
+            Pair p = st.pop();
+    
+            if (p.num == 1) {
+                // 1st time visiting the node, so add node in pre order and go left
+                preOrder.add(p.node.val);
+                p.num++;
+                st.push(p);  // Push back with incremented stage
+                if (p.node.left != null) {
+                    st.push(new Pair(p.node.left, 1));
+                }
+            } else if (p.num == 2) {
+                // 2nd time visiting the node, so add node in in order and go right
+                inOrder.add(p.node.val);
+                p.num++;
+                st.push(p);  // Push back with incremented stage
+                if (p.node.right != null) {
+                    st.push(new Pair(p.node.right, 1));
+                }
+            } else {
+                // 3rd time visiting the node, so add node in post order and don't push again
+                postOrder.add(p.node.val);
+            }
+        }
+    
+        // Print results
+        System.out.print("Pre-order (1-pass): ");
+        for (int val : preOrder) System.out.print(val + " ");
+        System.out.println();
+    
+        System.out.print("In-order (1-pass): ");
+        for (int val : inOrder) System.out.print(val + " ");
+        System.out.println();
+    
+        System.out.print("Post-order (1-pass): ");
+        for (int val : postOrder) System.out.print(val + " ");
+        System.out.println();
+    }    
+    
 
     // Breadth-First Search (Level-order)
     static void bfs(TreeNode root) {
@@ -87,13 +222,31 @@ public class Traversal {
         preOrder(root);
         System.out.println();
 
+        System.out.print("Pre-order (Iterative): ");
+        preOrderStack(root);
+        System.out.println();
+
         System.out.print("In-order: ");
         inOrder(root);
+        System.out.println();
+
+        System.out.print("In-order (Iterative): ");
+        inOrderStack(root);
         System.out.println();
 
         System.out.print("Post-order: ");
         postOrder(root);
         System.out.println();
+
+        System.out.print("Post-order (Iterative): ");
+        postOrderTwoStacks(root);
+        System.out.println();
+
+        System.out.print("Post-order (two stacks): ");
+        postOrderTwoStacks(root);
+        System.out.println();
+
+        PreInPostOrder(root);
 
         System.out.print("BFS (Level-order): ");
         bfs(root);
