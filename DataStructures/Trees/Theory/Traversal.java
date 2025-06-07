@@ -47,6 +47,32 @@ public class Traversal {
         return;
     }
 
+    public static void MorrisPreOrder(TreeNode root) {
+        TreeNode curr = root;
+
+        while (curr != null) {
+            if (curr.left == null) {
+                System.out.print(curr.val + " ");
+                curr = curr.right;
+            } else {
+                TreeNode pre = curr.left;
+                while (pre.right != null && pre.right != curr) {
+                    pre = pre.right;
+                }
+
+                if (pre.right == null) {
+                    pre.right = curr;  // Create thread
+                    System.out.print(curr.val + " ");
+                    curr = curr.left;
+                } else {
+                    pre.right = null;  // Remove thread
+                    curr = curr.right;
+                }
+            }
+        }
+
+    }
+
     static void inOrder(TreeNode node) {
         if (node == null) return;
         inOrder(node.left);
@@ -69,6 +95,32 @@ public class Traversal {
             }
             return;
         }
+    }
+
+    public static void MorrisInOrder(TreeNode root) {
+        TreeNode curr = root;
+
+        while (curr != null) {
+            if (curr.left == null) {
+                System.out.print(curr.val + " ");
+                curr = curr.right;
+            } else {
+                TreeNode pre = curr.left;
+                while (pre.right != null && pre.right != curr) {
+                    pre = pre.right;
+                }
+
+                if (pre.right == null) {
+                    pre.right = curr;  // Create thread
+                    curr = curr.left;
+                } else {
+                    pre.right = null;  // Remove thread
+                    System.out.print(curr.val + " ");
+                    curr = curr.right;
+                }
+            }
+        }
+
     }
 
     static void postOrder(TreeNode node) {
@@ -226,12 +278,20 @@ public class Traversal {
         preOrderStack(root);
         System.out.println();
 
+        System.out.print("Pre-order Morris Traversal: ");
+        MorrisPreOrder(root);
+        System.out.println();
+
         System.out.print("In-order: ");
         inOrder(root);
         System.out.println();
 
         System.out.print("In-order (Iterative): ");
         inOrderStack(root);
+        System.out.println();
+
+        System.out.print("In-order Morris Traversal: ");
+        MorrisInOrder(root);
         System.out.println();
 
         System.out.print("Post-order: ");
