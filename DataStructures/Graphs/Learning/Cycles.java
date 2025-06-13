@@ -98,4 +98,28 @@ class Cycles{
     path[node] = false;
     return false;
   }
+
+    public boolean isCyclicBFS(int V, int[][] edges) {
+        int[] inDegree = new int[V];
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i < V; i++) adj.add(new ArrayList<>());
+        for(int[] edge : edges){
+            adj.get(edge[0]).add(edge[1]);
+            inDegree[edge[1]]++;
+        }
+        int count = 0;
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0; i < V; i++){
+            if(inDegree[i]==0)q.offer(i);
+        }
+        while(!q.isEmpty()){
+            count++;
+            int node = q.poll();
+            for(int nei : adj.get(node)){
+                inDegree[nei]--;
+                if(inDegree[nei] == 0)q.offer(nei);
+            }
+        }
+        return count != V;
+    }
 }
