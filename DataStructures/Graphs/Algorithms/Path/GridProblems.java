@@ -4,6 +4,43 @@ import java.util.*;
 
 class GridProblems{
 
+    // https://www.geeksforgeeks.org/problems/minimum-multiplications-to-reach-end/1
+    class Pair {
+        int steps, node;
+        Pair(int s, int n) {
+            this.steps = s;
+            this.node = n;
+        }
+    }
+
+    int minimumMultiplications(int[] arr, int start, int end) {
+        int MOD = 100000;
+        int[] dis = new int[MOD];
+        Arrays.fill(dis, Integer.MAX_VALUE);
+        Queue<Pair> q = new LinkedList<>();
+
+        q.offer(new Pair(0, start));
+        dis[start] = 0;
+
+        while (!q.isEmpty()) {
+            Pair p = q.poll();
+            int currStep = p.steps;
+            int currNode = p.node;
+
+            if (currNode == end) return currStep;
+
+            for (int i : arr) {
+                int newNode = (currNode * i) % MOD;
+                if (dis[newNode] > currStep + 1) {
+                    dis[newNode] = currStep + 1;
+                    q.offer(new Pair(currStep + 1, newNode));
+                }
+            }
+        }
+
+        return -1;
+    }
+
   // https://leetcode.com/problems/shortest-path-in-binary-matrix/
   int[][] directions8D = {
     {1, 0}, {0, 1}, {-1, 0}, {0, -1},
@@ -72,4 +109,5 @@ class GridProblems{
 
     return -1; // unreachable (though the problem guarantees it is reachable)
   }
+
 }
