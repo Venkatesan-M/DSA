@@ -1,4 +1,4 @@
-package DataStructures.Graphs.Learning.Algorithms.Sorting.Path;
+package DataStructures.Graphs.Learning.Algorithms.Path;
 
 class FloydWarshallAlgorithm {
 
