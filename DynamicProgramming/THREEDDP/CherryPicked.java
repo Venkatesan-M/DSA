@@ -1,0 +1,103 @@
+package DynamicProgramming.THREEDDP;
+
+import java.util.Arrays;
+
+public class CherryPicked {
+    
+    int m, n;
+    public int cherryPickup(int[][] grid) {
+        m = grid.length; n = grid[0].length;
+        int[][][] dp = new int[m][n][n];
+
+        // tabulation approach
+        // for(int j1 = 0; j1 < n; j1++){
+        //     for(int j2 = 0; j2 < n; j2++){
+        //         if(j1==j2) dp[m-1][j1][j2] = grid[m-1][j1];
+        //         else{
+        //             dp[m-1][j1][j2] = grid[m-1][j1] + grid[m-1][j2];
+        //         }
+        //     }
+        // }
+        // for(int i = m - 2; i >= 0; i--){
+        //     for(int j1 = 0; j1 < n; j1++){
+        //         for(int j2 = 0; j2 < n; j2++){
+        //             int max = 0;
+        //             int points = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+        //             for(int nj1 = -1; nj1 <= 1; nj1++){
+        //                 for(int nj2 = -1; nj2 <= 1; nj2++){
+        //                     if(j1 + nj1 >= 0 && j1 + nj1 < n && j2 + nj2 >= 0 && j2 + nj2 < n) max = Math.max(max, dp[i+1][j1+nj1][j2+nj2]);
+        //                 }
+        //             }
+        //             dp[i][j1][j2] = max + points;
+        //         }
+        //     }
+        // }
+        // return dp[0][0][n-1];
+
+
+
+        // Space optimized approach
+        // int[][] front = new int[n][n];  // dp[i+1]
+        
+        // // Base case: last row
+        // for (int j1 = 0; j1 < n; j1++) {
+        //     for (int j2 = 0; j2 < n; j2++) {
+        //         if (j1 == j2) front[j1][j2] = grid[m - 1][j1];
+        //         else front[j1][j2] = grid[m - 1][j1] + grid[m - 1][j2];
+        //     }
+        // }
+
+        // // Bottom-up DP
+        // for (int i = m - 2; i >= 0; i--) {
+        //     int[][] curr = new int[n][n];
+        //     for (int j1 = 0; j1 < n; j1++) {
+        //         for (int j2 = 0; j2 < n; j2++) {
+        //             int max = 0;
+        //             for (int d1 = -1; d1 <= 1; d1++) {
+        //                 for (int d2 = -1; d2 <= 1; d2++) {
+        //                     int nj1 = j1 + d1;
+        //                     int nj2 = j2 + d2;
+        //                     if (nj1 >= 0 && nj1 < n && nj2 >= 0 && nj2 < n) {
+        //                         max = Math.max(max, front[nj1][nj2]);
+        //                     }
+        //                 }
+        //             }
+        //             int points = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+        //             curr[j1][j2] = points + max;
+        //         }
+        //     }
+        //     front = curr;
+        // }
+
+        // return front[0][n - 1];  // Start: robots at (0,0) and (0,n-1)
+
+
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                Arrays.fill(dp[i][j], -1);
+            }
+        }
+        return f(grid, dp, 0 , 0, n - 1);
+    }
+
+    int f(int[][] grid, int[][][] dp, int i, int j1, int j2){
+        if((i < 0 || i > m - 1) || (j1 < 0 || j1 >= n) || (j2 < 0 || j2 >= n)) return (int)-1e8;
+        if(i == m-1){
+            if(j1 == j2) return grid[i][j1];
+            else{
+                return grid[i][j1] + grid[i][j2];
+            }
+        }
+        if(dp[i][j1][j2]!=-1)return dp[i][j1][j2];
+        int max = 0;
+        int points = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
+        for(int nj1 = -1; nj1 <= 1; nj1++){
+            for(int nj2 = -1; nj2 <= 1; nj2++){
+                max = Math.max(max, points + f(grid, dp, i+1, j1 + nj1, j2 + nj2));
+            }
+        }
+        return dp[i][j1][j2] = max;
+    }
+
+}
