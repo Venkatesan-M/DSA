@@ -61,11 +61,14 @@ public class Nknights {
     }
 
     static List<List<String>> solveNKnights(int n){
-        List<List<String>> ans = new ArrayList<>();
-        List<String> board = new ArrayList<>();
-        for(int i = 0; i < n; i++){
-            board.add(".".repeat(n));
-        }
-        return backTrackNKnights(board, ans, 0, 0, n);
+    List<List<String>> ans = new ArrayList<>();
+    List<String> board = new ArrayList<>();
+    for(int i = 0; i < n; i++){
+        char[] row = new char[n];
+        Arrays.fill(row, '.');
+        board.add(new String(row));
     }
+    return backTrackNKnights(board, ans, 0, 0, n);
+}
+
 }

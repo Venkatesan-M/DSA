@@ -70,7 +70,11 @@ public class NQueens {
     public static List<List<String>> solveNQueens(int n) {
         List<List<String>> ans = new ArrayList<>();  // Initialize the answer list
         List<String> board = new ArrayList<>();
-        String col = ".".repeat(n);
+        StringBuilder row = new StringBuilder();
+        for (int j = 0; j < n; j++) {
+            row.append(".");
+        }
+        String col = row.toString();
 
         for (int i = 0; i < n; i++) {
             board.add(col);  // Create an empty board

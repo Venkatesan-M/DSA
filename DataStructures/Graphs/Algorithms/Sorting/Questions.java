@@ -1,4 +1,4 @@
-package DataStructures.Graphs.Learning.Algorithms.Sorting;
+package DataStructures.Graphs.Algorithms.Sorting;
 
 import java.util.*;
 

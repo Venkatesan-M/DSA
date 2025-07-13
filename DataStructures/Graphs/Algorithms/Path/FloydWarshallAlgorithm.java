@@ -1,4 +1,6 @@
-package DataStructures.Graphs.Learning.Algorithms.Path;
+package DataStructures.Graphs.Algorithms.Path;
+
+import java.util.Arrays;
 
 class FloydWarshallAlgorithm {
 

@@ -1,4 +1,4 @@
-package DataStructures.Graphs.Learning.Algorithms.Path;
+package DataStructures.Graphs.Algorithms.Path;
 
 
 import java.util.*;
@@ -6,12 +6,10 @@ import java.util.*;
 class BellmanFordAlgorithm {
 
   // https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1
-  static final int INF = (int)1e8;
 
-  public int[] bellmanFord(int V, int[][] edges, int src) {
     static final int INF = (int) 1e8;
 
-    public int[] bellmanFord(int V, int[][] edges, int src) {
+    public int[] bellmanFordAlgo(int V, int[][] edges, int src) {
         int[] dis = new int[V];
         int[] parent = new int[V];
         Arrays.fill(dis, INF);

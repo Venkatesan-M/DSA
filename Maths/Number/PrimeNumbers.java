@@ -32,8 +32,9 @@ public class PrimeNumbers {
         }
         for (int i = 2; i * i <= n; i++){
             if(isPrime[i]){
-                // if the number is prime
-                for(int j = 2 * i; j < n; j = j + i){
+                // if the number is prime, then all the multiples of that number
+                // are not prime
+                for(int j = i * i; j < n; j = j + i){
                     // set it's multiple of that number to be not prime
                     isPrime[j] = false;
                 }
@@ -62,7 +63,7 @@ public class PrimeNumbers {
         }
         for(int i = 2; i * i < n; i++){
             if(isPrime[i]){
-                for(int j = 2 * i; j < n; j = j + i){
+                for(int j = i * i; j < n; j = j + i){
                     isPrime[j] = false;
                 }
             }

@@ -26,10 +26,10 @@ public class Combinations{
 	    char ch = up.charAt(0);
         int d = ch - '2'; int s = (d < 6) ? d * 3: d * 3 + 1;
         for(int i = 0; i < 3; i++){
-            ans.addAll(findCombinations(p + Character.toString('a' + s + i), up.substring(1)));
+            ans.addAll(findCombinations(p + Character.toString((char)('a' + s + i)), up.substring(1)));
         }
         if(d == 5 || d == 7){
-            ans.addAll(findCombinations(p + Character.toString('a' + s + 3), up.substring(1)));
+            ans.addAll(findCombinations(p + Character.toString((char)('a' + s + 3)), up.substring(1)));
         }
 	    return ans;
 	}

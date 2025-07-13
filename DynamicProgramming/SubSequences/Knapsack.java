@@ -93,13 +93,11 @@ public class Knapsack {
         }
         
         for(int i = 1; i < n; i++){
-            int[] curr = new int[capacity+1];
             for(int cap = 0; cap <= capacity; cap++){
-                int take = (wt[i] <= cap)? val[i] + curr[cap - wt[i]]: 0;
+                int take = (wt[i] <= cap)? val[i] + prev[cap - wt[i]]: 0;
                 int ntake = prev[cap];
-                curr[cap] = Math.max(take, ntake);
+                prev[cap] = Math.max(take, ntake);
             }
-            prev = curr;
         }
         
         return prev[capacity];
