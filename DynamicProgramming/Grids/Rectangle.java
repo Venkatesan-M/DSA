@@ -2,7 +2,7 @@ package DynamicProgramming.Grids;
 
 import java.util.Stack;
 
-public class MaximumArea {
+public class Rectangle {
 
     // https://leetcode.com/problems/maximal-rectangle/description/
     // This problem is a variation of Largest Rectangle in Histogram
