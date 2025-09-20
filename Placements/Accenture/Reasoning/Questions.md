@@ -57,3 +57,26 @@ Here are the common logic types you should look for when solving number series q
   - `×1.5, ×2, ×2.5...`  
   - `×3, ×3.5...`
 
+
+### 8. Simple Interest
+- Interest is calculated by multiplying the principal by the interest rate.
+- **Example:** `×1.5, ×2, ×2.5...` → Multiply and add
+
+```sh
+    A = P * R * T
+```
+
+### 9. Component Interest
+
+
+
+### Day frome date
+
+2000 - 6
+2100 - 4
+2200 - 2
+2300 - 0
+
+| JAN | FEB | MAR | APR | MAY | JUN | JUL | AUG | SEP | OCT | NOV | DEC |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 3 6l | 3 2l | 6 | 1 | 4 | 6 | 2 | 5 | 0 | 3 | 5 |
