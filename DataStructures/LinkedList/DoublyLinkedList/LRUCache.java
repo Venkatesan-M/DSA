@@ -1,5 +1,7 @@
 package DataStructures.LinkedList.DoublyLinkedList;
 
+import java.util.*;
+
 class LRUCache {
 
     // https://leetcode.com/problems/lru-cache/
